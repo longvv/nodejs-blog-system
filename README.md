@@ -205,6 +205,10 @@ Run the server with dev mode
 ```
 npm run dev
 ```
+Open web browser and test
+```
+localhost:3000/health
+```
 
 ## 🧪 Testing
 (Will be added as we implement testing)
