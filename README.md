@@ -29,7 +29,35 @@ A complete blog system built with NodeJS, Express, and MongoDB during a 14-day l
 
 ## 📁 Project Structure
 ```markdown
-(Project structure như đã show ở message trước)
+blog-system/
+├── src/
+│   ├── config/
+│   │   ├── database.js     # Database configuration
+│   │   └── app.js         # App configuration
+│   ├── models/
+│   │   ├── User.js        # User model
+│   │   ├── Post.js        # Blog post model
+│   │   └── Comment.js     # Comment model
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── postController.js
+│   │   └── commentController.js
+│   ├── routes/
+│   │   ├── auth.js        # Authentication routes
+│   │   ├── posts.js       # Post management routes
+│   │   └── comments.js    # Comment routes
+│   ├── middleware/
+│   │   ├── auth.js        # Authentication middleware
+│   │   └── validation.js  # Input validation
+│   ├── utils/
+│   │   ├── logger.js      # Logging utility
+│   │   └── helpers.js     # Helper functions
+│   └── app.js             # Main application file
+├── tests/
+│   ├── unit/
+│   └── integration/
+├── package.json
+└── README.md
 ```
 
 ## 🚦 Getting Started
