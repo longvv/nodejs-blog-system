@@ -107,6 +107,31 @@ tree
 
 ```
 - Basic Express server setup
+```
+cd nodejs-blog-system
+npm install -y
+
+```
+Set start file for production and development in packet.json
+```
+"scripts": {
+  "start": "node src/app.js",
+  "dev": "nodemon src/app.js"
+}
+
+```
+Add dependency for project, we have:
+express: web API management 
+corns: handle Cross-Origin Resource Sharing
+dotenv: handle variable environment
+helmet: handle security
+nodemon: auto-reload whenever file changed
+```
+npm install express dotenv cors helmet
+npm install --save-dev nodemon
+
+```
+  
 - Environment configuration
 - (Will be updated as we progress)
 
