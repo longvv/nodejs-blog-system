@@ -1,0 +1,1 @@
+Init project folders structure
