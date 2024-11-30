@@ -145,36 +145,34 @@ NODE_ENV=development
   
 - Add simple code to App.js and test
 ```
-// src/app.js
+// src/app.js, import libraries, and framework need to be used.
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 require('dotenv').config();
 
+// Create an instance of express
 const app = express();
 
-// Middleware
-app.use(helmet()); // Bảo mật cho ứng dụng
-app.use(cors()); // Cho phép cross-origin requests
+// Middleware, use libraries in express instance created.
+app.use(helmet()); // manage security
+app.use(cors()); // handle cross-origin requests
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
-// Basic route for testing
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Welcome to Blog System API',
-    version: '1.0.0',
-    status: 'Active'
-  });
-});
-
-// Health check route
-app.get('/health', (req, res) => {
-  res.json({
-    status: 'OK',
-    timestamp: new Date(),
-    uptime: process.uptime()
-  });
+// Health check
+// Get method with 2 params: endpoint and handler
+// endpoint: '/health'
+// handler has params: req and res within req is the request, and res is the response and next use to call next middleware action
+app.get('/health', (req, res, next) => {
+    try {
+        res.json({
+            status: 'OK',
+            time: new Date(),
+        });
+    } catch (error) {
+        next(error);
+    }
 });
 
 // Error handling middleware
