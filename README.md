@@ -143,7 +143,68 @@ NODE_ENV=development
 
 ```
   
-- (Will be updated as we progress)
+- Add simple code to App.js and test
+```
+// src/app.js
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+require('dotenv').config();
+
+const app = express();
+
+// Middleware
+app.use(helmet()); // Bảo mật cho ứng dụng
+app.use(cors()); // Cho phép cross-origin requests
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+// Basic route for testing
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to Blog System API',
+    version: '1.0.0',
+    status: 'Active'
+  });
+});
+
+// Health check route
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'OK',
+    timestamp: new Date(),
+    uptime: process.uptime()
+  });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    status: 'error',
+    message: 'Something went wrong!'
+  });
+});
+
+// Handle 404 routes
+app.use((req, res) => {
+  res.status(404).json({
+    status: 'error',
+    message: 'Route not found'
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
+});
+```
+Run the server with dev mode
+
+```
+npm run dev
+```
 
 ## 🧪 Testing
 (Will be added as we implement testing)
