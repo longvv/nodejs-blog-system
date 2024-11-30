@@ -112,8 +112,9 @@ cd nodejs-blog-system
 npm install -y
 
 ```
-Set start file for production and development in packet.json
 ```
+Set start file for production and development in packet.json
+
 "scripts": {
   "start": "node src/app.js",
   "dev": "nodemon src/app.js"
@@ -121,20 +122,22 @@ Set start file for production and development in packet.json
 
 ```
 - Add project dependency:
+```
 express: web API management 
 corns: handle Cross-Origin Resource Sharing
 dotenv: handle variable environment
 helmet: handle security
 nodemon: auto-reload whenever file changed
-```
+
 npm install express dotenv cors helmet
 npm install --save-dev nodemon
 
 ```
 
 - Environment configuration
-  create a file with .env and add variables
 ```
+create a file with .env and add variables
+
 PORT=3000
 NODE_ENV=development
 
