@@ -4,7 +4,7 @@ A complete blog system built with NodeJS, Express, and MongoDB during a 14-day l
 
 ## 🚀 Learning Progress
 - [x] Day 1: Project Setup & Basic Express Server
-- [ ] Day 2: Async Programming & Basic Routing
+- [x] Day 2: Async Programming & Basic Routing
 - [ ] Day 3: Database Integration
 - [ ] Day 4: Models & Basic CRUD
 - [ ] Day 5: API Routes & Controllers
