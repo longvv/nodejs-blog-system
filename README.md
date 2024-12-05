@@ -31,6 +31,14 @@ A complete blog system built with NodeJS, Express, and MongoDB during a 14-day l
 ```markdown
 blog-system/
 ├── src/
+│   └── services/
+│   │   ├── postService.js
+│   │   ├── userService.js
+│   │   └── commentService.js
+│   └── repositories/
+│   │   ├── postRepository.js
+│   │   ├── userRepository.js
+│   │   └── commentRepository.js
 │   ├── config/
 │   │   ├── database.js     # Database configuration
 │   │   └── app.js         # App configuration
@@ -206,101 +214,6 @@ npm run dev
 Open web browser and test
 ```
 localhost:3000/health
-```
-### Day 2: Async Programming & Basic Routing
-
-### Day 3: Database Integration
-Data flow
-![Designing data intensive application-2024-12-05-034330](https://github.com/user-attachments/assets/c45ec078-bb99-479f-a96c-4f441031d393)
-
-We will use MongoDB for this project with the Mongoose libraries for database handling
-```
-npm install mongoose
-```
-First, we need to set MONGODB_URI in .env file
-MONGODB_URI=mongodb://localhost:27017/blog_system
-MONGODB_TEST_URI=mongodb://localhost:27017/blog_system_test
-```
-Go to the config folder and edit the database.js file
-
-```
-
-const mongoose = require('mongoose');
-
-// Connect to the database
-const connectDB = async () => {
-    try {
-        // Enable strict query mode for better error handling
-        mongoose.set('strictQuery', true);
-
-        const connection = await mongoose.connect(process.env.MONGODB_URI, {
-            // Configuration options for stable connection
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-
-        console.log(`MongoDB Connected: `, conn.connection.host);
-
-        // Handle connection events
-        connection.on('disconnected', handleConnectionDisconnected);
-
-        connection.on('connected', handleConnectionConnected);
-
-        connection.on('error', handleConnectionError);
-    }
-    catch (err) {
-        handleConnectionException(err);
-        process.exit(1);
-    }
-}
-
-// Check connection is ready connected
-const checkConnection = () => {
-    return mongoose.connect.readystate === STATES.connected;
-}
-
-const disconnectDatabase = async () => {
-    try {
-        mongoose.connection.close();
-        console.log('MongoDB connection closed');
-        process.exit(0);
-    }
-    catch (err) {
-        console.log('disconnect database error: ', err.message);
-    }
-}
-
-const clearDatabase = () => {
-    mongoose.connection.db.dropDatabase();
-    console.log('Database cleared');
-}
-
-// Observable connection events
-function handleConnectionConnected() {
-    console.log('MongoDB connection established');
-}
-
-function handleConnectionDisconnected() {
-    console.log('MongoDB connection lost');
-}
-
-function handleConnectionError(err) {
-    console.error('MongoDB connection error:', err.message);
-}
-
-function handleConnectionException(err) {
-    console.error('Could not connect to MongoDB:', err.message);
-}
-
-
-// Public functions
-module.exports = {
-    connectDB,
-    disconnectDatabase,
-    checkConnection,
-    clearDatabase,
-};
-
 ```
 
 ## 🧪 Testing

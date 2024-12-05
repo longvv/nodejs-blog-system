@@ -2,6 +2,7 @@ const helmets = require('helmet');
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const {connectDB} = require('../src/config/database');
 
 const app = express();
 
@@ -65,6 +66,11 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
+    });
+}).catch(err => {
+    console.error('Failed to connect to MongoDB:', err.message);
+    process.exit(1);
 });
