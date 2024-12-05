@@ -222,7 +222,9 @@ MONGODB_URI=mongodb://localhost:27017/blog_system
 MONGODB_TEST_URI=mongodb://localhost:27017/blog_system_test
 ```
 Go to the config folder and edit the database.js file
+
 ```
+
 const mongoose = require('mongoose');
 
 // Connect to the database
@@ -298,6 +300,7 @@ module.exports = {
     checkConnection,
     clearDatabase,
 };
+
 ```
 
 ## 🧪 Testing
