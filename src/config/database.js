@@ -11,20 +11,16 @@ const connectDB = async () => {
         // Log environment information for debugging
         const mongoURI = process.env.MONGODB_URI;
 
-        const connection = await mongoose.connect(mongoURI, {
-            // Configuration options for stable connection
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        const connection = await mongoose.connect(mongoURI);
 
-        console.log(`MongoDB Connected: `, conn.connection.host);
+        console.log(`MongoDB Connected: `, connection.connection.host);
 
         // Handle connection events
-        connection.on('disconnected', handleConnectionDisconnected);
+        connection.connection.on('disconnected', handleConnectionDisconnected);
 
-        connection.on('connected', handleConnectionConnected);
+        connection.connection.on('connected', handleConnectionConnected);
 
-        connection.on('error', handleConnectionError);
+        connection.connection.on('error', handleConnectionError);
     }
     catch (err) {
         handleConnectionException(err);

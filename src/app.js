@@ -69,8 +69,9 @@ const PORT = process.env.PORT;
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
+        console.log('Database connected');
     });
 }).catch(err => {
-    console.error('Failed to connect to MongoDB:', err.message);
+    console.error('Failed to connect to MongoDB:', err);
     process.exit(1);
 });
