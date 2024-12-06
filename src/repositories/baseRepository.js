@@ -1,6 +1,24 @@
 class BaseRepository {
     constructor(model) {
+        if (!model) {
+            throw new Error('No model provided');
+        }
         this.model = model;
+        const modelName = model.modelName;
+        try {
+            const strategy = ValidationStrategyFactory.createStrategy(`${modelName}-repository`);
+            this.setValidateStrategy(strategy);
+        } catch (error) {
+            throw new Error(`Error creating repository for model "${modelName}": ${error.message}`);
+        }
+    }
+
+    setValidateStrategy(strategy) {
+        this._validationStrategy = strategy;
+    }
+
+    getValidateStrategy() {
+        return this._validationStrategy;
     }
 
     //Basic CRUD methods

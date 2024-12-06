@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const {connectDB} = require('../src/config/database');
+const {initializeValidationStrategies} = require('../src/validations/index');
 
 const app = express();
 
@@ -67,6 +68,9 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT;
 
 connectDB().then(() => {
+    // Initialize validation strategies
+    initializeValidationStrategies();
+    
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
         console.log('Database connected');

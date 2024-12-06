@@ -44,4 +44,27 @@ const postSchema = {
     }
 };
 
-module.exports = postSchema;
+// Add indexes for performance optimization
+const indexes = [
+    // Compound index for efficient querying by status and date
+    { status: 1, createdAt: -1 },
+    
+    // Text index for full-text search
+    {
+        title: 'text',
+        content: 'text',
+        tags: 'text'
+    },
+    
+    // Index for slug lookups
+    { slug: 1 },
+    
+    // Compound index for author's posts
+    { author: 1, createdAt: -1 }
+];
+
+
+module.exports = {
+    schema: postSchema,
+    indexes: indexes
+};

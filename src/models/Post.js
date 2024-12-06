@@ -12,6 +12,12 @@ class Post extends BaseModel {
         this.viewCount = 0;
     }
 
+    updatePostContent(content, updatedAt) {
+        
+        this.content = content;
+        this.updatedAt = updatedAt;
+    }
+
     destroy() {
         
     }
