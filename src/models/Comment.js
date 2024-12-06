@@ -1,17 +1,15 @@
-class Comment {
-    commentText
-    author
-    #createdAt
-    #updatedAt
+const commentSchema = require('../schemas/commentSchema');
+class Comment extends baseModel {
 
-    constructor(commentText, author, createdAt) {
-        this.commentText = commentText;
+    constructor(content, author, createdAt) {
+        super('Comment', commentSchema);
+        this.content = content;
         this.author = author;
         this.createdAt = createdAt;
     }
 
-    updateComment(comment, updatedAt) {
-        this.commentText = commentText;
+    updateComment(content, updatedAt) {
+        this.content = content;
         this.updatedAt = updatedAt;
     }
 

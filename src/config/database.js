@@ -9,7 +9,7 @@ const connectDB = async () => {
         mongoose.set('strictQuery', true);
 
         // Log environment information for debugging
-        const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/blog_system_test';
+        const mongoURI = process.env.MONGODB_URI;
 
         const connection = await mongoose.connect(mongoURI, {
             // Configuration options for stable connection

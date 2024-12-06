@@ -1,18 +1,13 @@
-class User {
-    username;
-    email
-    #password
-    posts
-    comments
-    name
-    fullmame
+const userSchema = require('../schemas/userSchema');
+class User extends BaseModel {
 
-    constructor(username, email, password, name, fullmame) {
+    constructor(username, email, password, role, profile) {
+        super('User', userSchema);
         this.username = username;
         this.email = email;
         this.password = password;
-        this.name = name;
-        this.fullmame = fullmame;
+        this.role = role;
+        this.profile = profile;
     }
 
     destroy() {
