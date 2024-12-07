@@ -9,3 +9,5 @@ class CommentValidation extends ValidationStrategy {
         ValidationHelper.validateMaxLength(data, 'Content', 50);
     }
 }
+
+module.exports = CommentValidation;

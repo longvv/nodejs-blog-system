@@ -3,3 +3,5 @@ class PostRepositoryValidation extends RepositoryValidationStrategy {
         
     }
 }
+
+module.exports = PostRepositoryValidation;

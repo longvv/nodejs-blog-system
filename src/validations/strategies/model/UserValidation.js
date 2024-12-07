@@ -15,3 +15,5 @@ class UserValidation extends ValidationStrategy {
         }
     }
 }
+
+module.exports = UserValidation;

@@ -13,3 +13,5 @@ class ValidationStrategyFactory {
         return new StrategyClass(options);
     }
 }
+
+module.exports = ValidationStrategyFactory;

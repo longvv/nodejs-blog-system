@@ -14,3 +14,5 @@ class PostValidation extends ValidationStrategy {
         }
     }
 }
+
+module.exports = PostValidation;

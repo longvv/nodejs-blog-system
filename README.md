@@ -36,16 +36,18 @@ blog-system/
 │   │   ├── userService.js
 │   │   └── commentService.js
 │   └── repositories/
-│   │   ├── postRepository.js
-│   │   ├── userRepository.js
-│   │   └── commentRepository.js
+│   │   ├── BaseRepository.js
+│   │   ├── postRepository.js     # extends BaseRepository
+│   │   ├── userRepository.js     # extends BaseRepository
+│   │   └── commentRepository.js  # extends BaseRepository
 │   ├── config/
 │   │   ├── database.js     # Database configuration
-│   │   └── app.js         # App configuration
+│   │   └── app.js          # App configuration
 │   ├── models/
-│   │   ├── User.js        # User model
-│   │   ├── Post.js        # Blog post model
-│   │   └── Comment.js     # Comment model
+│   │   ├── BaseModel.js   # Base model
+│   │   ├── User.js        # User model extends BaseModel
+│   │   ├── Post.js        # Blog post model extends BaseModel
+│   │   └── Comment.js     # Comment model extends BaseModel
 │   ├── controllers/
 │   │   ├── authController.js
 │   │   ├── postController.js
@@ -60,6 +62,20 @@ blog-system/
 │   ├── utils/
 │   │   ├── logger.js      # Logging utility
 │   │   └── helpers.js     # Helper functions
+│   └── validations/
+│   │    ├── ValidationStrategyFactory.js     # Apply Factory pattern to register and create validation
+│   │    ├── index.js
+│   │    └── strategies/
+│   │        ├── model/
+│   │        │   ├── ValidationStrategy.js    # Apply Strategy pattern
+│   │        │   ├── CommentValidation.js     # As a concrete class extends ValidationStrategy
+│   │        │   ├── PostValidation.js        # As a concrete class extends ValidationStrategy
+│   │        │   └── UserValidation.js        # As a concrete class extends ValidationStrategy
+│   │        └── repository/
+│   │            ├── RepositoryValidationStrategy.js    # Apply Strategy pattern
+│   │            ├── CommentRepositoryValidation.js     # As a concrete class extends RepositoryValidationStrategy
+│   │            ├── PostRepositoryValidation.js        # As a concrete class extends RepositoryValidationStrategy
+│   │            └── UserRepositoryValidation.js        # As a concrete class extends RepositoryValidationStrategy
 │   └── app.js             # Main application file
 ├── tests/
 │   ├── unit/

@@ -1,9 +1,9 @@
 const helmets = require('helmet');
 const express = require('express');
 const cors = require('cors');
+const {initializeValidationStrategies} = require('../src/validations/index');
 require('dotenv').config();
 const {connectDB} = require('../src/config/database');
-const {initializeValidationStrategies} = require('../src/validations/index');
 
 const app = express();
 

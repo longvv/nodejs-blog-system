@@ -3,3 +3,5 @@ class CommentRepositoryValidation extends RepositoryValidationStrategy {
         
     }
 }
+
+module.exports = CommentRepositoryValidation;

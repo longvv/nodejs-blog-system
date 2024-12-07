@@ -3,3 +3,5 @@ class UserRepositoryValidation extends RepositoryValidationStrategy {
         
     }
 }
+
+module.exports = UserRepositoryValidation;
