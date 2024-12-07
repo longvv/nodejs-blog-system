@@ -11,3 +11,5 @@ class ValidationStrategy {
 
     }
 }
+
+module.exports = ValidationStrategy;

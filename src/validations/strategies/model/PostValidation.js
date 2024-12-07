@@ -1,3 +1,4 @@
+const ValidationStrategy = require('./ValidationStrategy');
 class PostValidation extends ValidationStrategy {
     async validate(data) {
         ValidationHelper.validateRequired(data.title, 'Title');

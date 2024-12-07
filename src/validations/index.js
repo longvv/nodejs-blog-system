@@ -7,7 +7,7 @@ const CommentRepositoryValidation = require('./strategies/repository/CommentRepo
 const PostRepositoryValidation = require('./strategies/repository/PostRepositoryValidation');
 const UserRepositoryValidation = require('./strategies/repository/UserRepositoryValidation');
 
-export function initializeValidationStrategies(factory = new ValidationStrategyFactory()) {
+function initializeValidationStrategies(factory = new ValidationStrategyFactory()) {
     //Model validation registration
     factory.registerStrategy('comment', CommentValidation);
     factory.registerStrategy('post', PostValidation);

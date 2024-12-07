@@ -1,3 +1,4 @@
+const ValidationStrategy = require('./ValidationStrategy');
 class UserValidation extends ValidationStrategy {
     async validate(data) {
         // Perform common validation tasks here

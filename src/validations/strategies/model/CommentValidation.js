@@ -1,3 +1,4 @@
+const ValidationStrategy = require('./ValidationStrategy');
 class CommentValidation extends ValidationStrategy {
     async validate(data) {
         ValidationHelper.validateRequired(data.Content, 'Content');

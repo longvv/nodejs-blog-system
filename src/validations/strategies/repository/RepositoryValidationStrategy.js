@@ -11,3 +11,5 @@ class RepositoryValidationStrategy {
 
     }
 }
+
+module.exports = RepositoryValidationStrategy;
