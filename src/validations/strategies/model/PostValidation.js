@@ -7,6 +7,8 @@ class PostValidation extends ValidationStrategy {
 
         // Validate content
         ValidationHelper.validateRequired(data.content, 'Content');
+        ValidationHelper.validateRequired(data.author, 'Author');
+        ValidationHelper.validateRequired(data.slug, 'Slug');
         
         // Post-specific validations
         const paragraphs = data.content.split('\n\n');

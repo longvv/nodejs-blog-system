@@ -4,6 +4,7 @@ const cors = require('cors');
 const {initializeValidationStrategies} = require('../src/validations/index');
 require('dotenv').config();
 const {connectDB} = require('../src/config/database');
+const postRouter = require('../src/routes/posts');
 
 const app = express();
 
@@ -13,27 +14,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//Basic API
-app.get('/',(req, res) => {
-    res.json({
-        message: 'Hello, World!'
-    })
-});
-
-app.get('/users/:id', async (req, res, next) => {
-    try {
-        res.json({
-            message: 'User fetched successfully',
-            user: {
-                id: req.params.id,
-                name: 'John Doe'
-            }
-        });
-    }
-    catch (error) {
-        next(error);
-    }
-});
+//Register routers
+app.use('/api/posts', postRouter);
 
 //Get server heath
 app.get('/health', (req, res, next) => {

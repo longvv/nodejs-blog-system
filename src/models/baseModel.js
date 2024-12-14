@@ -33,6 +33,15 @@ class BaseModel {
         this._validationStrategy.validate(data);
     }
 
+    async create(data, condition) {
+        try {
+            await this.validate(data);
+            return await this.model.create(data, condition);
+        } catch (error) {
+            throw new Error(`Error creating ${this.modelName}: ${error.message}`);
+        }
+    }
+
     destroy() {
 
     }
