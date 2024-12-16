@@ -4,7 +4,7 @@ class BaseModel {
     #validationStrategy = null;
     constructor(modelName, schema, options = {}) {
         // Create mongoose schema with provided definition
-        mongoose.createSchema(schema, {timestamps: true, ...options});
+        mongoose.Schema(schema, {timestamps: true, ...options});
         // store model name as reference
         this.modelName = modelName;
         // create model based on schema

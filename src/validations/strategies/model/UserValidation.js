@@ -1,19 +1,24 @@
 const ValidationStrategy = require('./ValidationStrategy');
 class UserValidation extends ValidationStrategy {
     async validate(data) {
-        // Perform common validation tasks here
-        ValidationHelper.validateRequired(data.title, 'Email');
-        ValidationHelper.validateEmail(data.email);
+        await validateEmail(data.email);
+        await validateUserName(data.username);
+        await validatePassword(data.password);
+    }
 
-        // User-specific password validation
-        if (data.password) {
-            if (!/[A-Z]/.test(data.password)) {
-                throw new Error('Password must contain at least one uppercase letter');
-            }
-            if (!/[0-9]/.test(data.password)) {
-                throw new Error('Password must contain at least one number');
-            }
-        }
+    async validatePassword(password) {
+        ValidationHelper.validateRequired(password, 'Password');
+        ValidationHelper.validatePasswordFormat(password);
+    }
+
+    async validateUserName(username) {
+        ValidationHelper.validateRequired(username, 'Username');
+        ValidationHelper.validateUserNameFormat(username);
+    }
+
+    async validateEmail(email) {
+        ValidationHelper.validateRequired(email, 'Email');
+        ValidationHelper.validateEmailFormat(email);
     }
 }
 

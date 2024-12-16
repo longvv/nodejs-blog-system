@@ -8,7 +8,7 @@ class BaseRouter {
 
         this.controllers = new Map();
         this.controllerFactories = new Map();
-        this.defaultVersion = 'V1';
+        this.defaultVersion = 'v1';
 
         this.router.use(this.versionCheck.bind(this));
     }

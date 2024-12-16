@@ -1,5 +1,6 @@
 class BaseRepository {
     #model = null;
+    #validationStrategy = null;
 
     constructor() {
         
@@ -27,11 +28,11 @@ class BaseRepository {
     }
 
     setValidateStrategy(strategy) {
-        this._validationStrategy = strategy;
+        this.#validationStrategy = strategy;
     }
 
     getValidateStrategy() {
-        return this._validationStrategy;
+        return this.#validationStrategy;
     }
 
     //Basic CRUD methods
@@ -119,6 +120,7 @@ class BaseRepository {
     }
 
     destroy() {
-        
+        this.#model = null;
+        this.#validationStrategy = null;
     }
 }
