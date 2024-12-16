@@ -1,12 +1,22 @@
-const expres = require('express');
-const Router = express.Router();
+const AuthControllerFactory = require('../controllers/auth/authControllerFactory');
+const AuthServiceFactory = require('../services/auth/authServiceFactory');
 
-const AuthController = require('AuthController');
-const authService = new AuthService();
+class AuthRouter extends BaseRouter {
+    constructor() {
+        super();
+        const serviceFactory = new AuthServiceFactory();
+        const controllerFactory = new AuthControllerFactory(serviceFactory);
+        this.markAsSupported('v1');
+        this.registerVersion('v1', () => controllerFactory.createAuthControllerVersion1());
+        this.defineRoutes();
+    }
 
-const authController = new AuthController(authService);
+    defineRoutes() {
+        this.post('/login', 'login');
+        this.post('/logout', 'logout');
+        this.post('/register', 'register');
+        this.post('/delete', 'delete');
+    }
+}
 
-Router.post('/login', authController.login.bind(authController));
-Router.post('/logout', authController.logout.bind(authController));
-Router.post('/register', authController.register.bind(authController));
-Router.post('/delete', authController.delete.bind(authController));
+module.exports = AuthRouter;

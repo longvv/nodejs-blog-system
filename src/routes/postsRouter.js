@@ -1,5 +1,5 @@
-const PostControllerFactory = require('../controllers/postControllerFactory');
-const PostServiceFactory = require('../services/postServiceFactory');
+const PostControllerFactory = require('../controllers/auth/postControllerFactory');
+const PostServiceFactory = require('../services/post/postServiceFactory');
 const auth = require('../middleware/auth');
 
 class PostRouter extends BaseRouter {

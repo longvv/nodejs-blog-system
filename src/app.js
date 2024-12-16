@@ -4,9 +4,9 @@ const cors = require('cors');
 const {initializeValidationStrategies} = require('../src/validations/index');
 require('dotenv').config();
 const {connectDB} = require('../src/config/database');
-const postRouter = require('../src/routes/postsRouter');
-const authRouter = require('../src/routes/authRouter');
-
+const PostRouter = require('../src/routes/postsRouter');
+const AuthRouter = require('../src/routes/authRouter');
+const CommentRouter = require('../src/routes/comments');
 const app = express();
 
 // Middleware
@@ -16,26 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Register routers
-app.use('/api/posts', postRouter);
-app.use('/api/auth', authRouter);
-
-//Get server heath
-app.get('/health', (req, res, next) => {
-    try {
-        var _uptime = Math.round(process.uptime());
-        res.json({
-            status: 'OK',
-            time: new Date(),
-            uptime: _uptime,
-        });
-    } catch (error) {
-        next(error);
-    }
-});
+app.use('/api/posts', PostRouter);
+app.use('/api/auth', AuthRouter);
+app.use('/api/comments', CommentRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
     res.status(500).json({ 
         status: 'Internal Server Error',
         error: err.message,

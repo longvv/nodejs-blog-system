@@ -47,11 +47,22 @@ class BaseRouter {
         }
     }
 
-    registerVersion(version, controllerFactory) {
-        if (!version || typeof controllerFactory !== 'function') {
-            throw new Error('Version and controller factory function are required');
+    registerVersion(version, controllerOrFactory) {
+        if (!version) {
+            throw new Error('Version is required');
         }
-        this.controllerFactories.set(version, controllerFactory);
+        const version = version.toLowerCase();
+        switch (typeof controllerOrFactory) {
+            case 'function':
+                this.controllerFactories.set(version, controllerOrFactory);
+                break;
+            case 'object':
+                this.controllers.set(version, controllerOrFactory);
+                break;
+            default:
+                throw new Error('Controller must be either a factory function or controller instance');
+        }
+
     }
 
     getController(version) {
