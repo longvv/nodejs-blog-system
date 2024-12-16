@@ -4,7 +4,8 @@ const cors = require('cors');
 const {initializeValidationStrategies} = require('../src/validations/index');
 require('dotenv').config();
 const {connectDB} = require('../src/config/database');
-const postRouter = require('../src/routes/posts');
+const postRouter = require('../src/routes/postsRouter');
+const authRouter = require('../src/routes/authRouter');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Register routers
 app.use('/api/posts', postRouter);
+app.use('/api/auth', authRouter);
 
 //Get server heath
 app.get('/health', (req, res, next) => {

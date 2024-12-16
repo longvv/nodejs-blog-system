@@ -34,3 +34,5 @@ class PostService {
             .replace(/(^-|-$)/g, '');
     }
 }
+
+module.exports = PostService;
