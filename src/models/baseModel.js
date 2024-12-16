@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 class BaseModel {
-    
+    #validationStrategy = null;
     constructor(modelName, schema, options = {}) {
         // Create mongoose schema with provided definition
         mongoose.createSchema(schema, {timestamps: true, ...options});
@@ -9,7 +9,6 @@ class BaseModel {
         this.modelName = modelName;
         // create model based on schema
         this.model = mongoose.model(modelName, this.schema);
-        this._validationStrategy = null;
         try {
             const strategy = ValidationStrategyFactory.createStrategy(this.modelName)
             this.setValidateStrategy(strategy);
@@ -19,18 +18,18 @@ class BaseModel {
     }
 
     setValidateStrategy(strategy) {
-        this._validationStrategy = strategy;
+        this.#validationStrategy = strategy;
     }
 
     getValidateStrategy() {
-        return this._validationStrategy;
+        return this.#validationStrategy;
     }
 
     async validate(data) {
-        if (!this._validationStrategy) {
+        if (!this.#validationStrategy) {
             throw new Error('Validation strategy is not set');
         }
-        this._validationStrategy.validate(data);
+        this.#validationStrategy.validate(data);
     }
 
     async create(data, condition) {

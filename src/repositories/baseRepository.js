@@ -1,9 +1,22 @@
 class BaseRepository {
-    constructor(model) {
+    #model = null;
+
+    constructor() {
+        
+    }
+
+    getModel() {
+        if (!this.#model) {
+            throw new Error('Model not set');
+        }
+        return this.#model;
+    }
+
+    setModel(model) {
         if (!model) {
             throw new Error('No model provided');
         }
-        this.model = model;
+        this.#model = model;
         const modelName = model.modelName;
         try {
             const strategy = ValidationStrategyFactory.createStrategy(`${modelName}-repository`);

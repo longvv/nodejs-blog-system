@@ -1,18 +1,21 @@
+const Post = require('../models/Post');
 class PostRepository extends BaseRepository {
-    constructor(model) {
-        super(model);
+    constructor() {
     }
 
     //Create a post
     async create(data, options) {
         try {
-            return await this.model.create(data, options);
+            const model = await Post();
+            return await model.create(data, options);
         } catch (error) {
             throw new Error(`Error creating post: ${error.message}`);
         }
     }
 
     async findBySlug(slug) {
-        return await this.model.findOne({ slug });
+        return await this.getModel().findOne({ slug });
     }
 }
+
+module.exports = PostRepository;

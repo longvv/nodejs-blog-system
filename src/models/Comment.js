@@ -1,10 +1,8 @@
 const commentSchema = require('../schemas/commentSchema');
 class Comment extends baseModel {
 
-    constructor(content, author) {
+    constructor() {
         super('Comment', commentSchema);
-        this.content = content;
-        this.author = author;
     }
 
     updateComment(content) {

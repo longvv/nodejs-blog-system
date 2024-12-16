@@ -1,5 +1,6 @@
 class CommentRepository extends BaseRepository {
-    constructor(model, options) {
-        super(model);
+    constructor() {
     }
 }
+
+module.exports = CommentRepository;
