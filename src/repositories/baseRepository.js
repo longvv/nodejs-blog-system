@@ -124,3 +124,5 @@ class BaseRepository {
         this.#validationStrategy = null;
     }
 }
+
+module.exports = BaseRepository;

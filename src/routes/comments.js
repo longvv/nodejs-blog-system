@@ -1,18 +1,20 @@
-const CommentControllerFactory = require('../controllers/comment/commentControllerFactory');
-const CommentServiceFactory = require('../services/comment/commentServiceFactory');
+const BaseRouter = require('./baseRouter');
+const CommentController = require('../controllers/commentController');
+const CommentService = require('../services/commentService');
 
 class CommentRouter extends BaseRouter {
     constructor() {
-        super();
-        const serviceFactory = new CommentServiceFactory();
-        const controllerFactory = new CommentControllerFactory(serviceFactory);
+        const service = new CommentService();
+        super(CommentController, service);
         this.markAsSupported('v1');
-        this.registerVersion('v1', () => controllerFactory.createCommentControllerVersion1());
         this.defineRoutes();
     }
 
     defineRoutes() {
-        this.get('/comments/:id', 'getCommentById');
+        this.router.get('/comments/:id', (req, res, next) => {
+            const version = this.getAcceptVersion(req);
+            this.handleRequest(version,'getCommentById',req, res, next);
+        });
     }
 }
 

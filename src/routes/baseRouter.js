@@ -1,14 +1,15 @@
 const express = require('express');
 
 class BaseRouter {
-    constructor() {
+    constructor(ControllerClass,...dependencies) {
         this.router = express.Router();
         this.deprecatedVersions = new Set();
         this.supportedVersions = new Set();
-
-        this.controllers = new Map();
-        this.controllerFactories = new Map();
         this.defaultVersion = 'v1';
+
+        this.ControllerClass = ControllerClass;
+        this.dependencies = dependencies;
+        this.controller = null;
 
         this.router.use(this.versionCheck.bind(this));
     }
@@ -51,13 +52,13 @@ class BaseRouter {
         if (!version) {
             throw new Error('Version is required');
         }
-        const version = version.toLowerCase();
+        const _version = version.toLowerCase();
         switch (typeof controllerOrFactory) {
             case 'function':
-                this.controllerFactories.set(version, controllerOrFactory);
+                this.controllerFactories.set(_version, controllerOrFactory);
                 break;
             case 'object':
-                this.controllers.set(version, controllerOrFactory);
+                this.controllers.set(_version, controllerOrFactory);
                 break;
             default:
                 throw new Error('Controller must be either a factory function or controller instance');
@@ -65,25 +66,20 @@ class BaseRouter {
 
     }
 
-    getController(version) {
-        if (!this.supportedVersions.get(version)) {
-            res.status(404).json({
-                error: `API version "${version}" is not supported`,
-                supportedVersions: [...this.supportedVersions],
-            });
+    getController() {
+        if (!this.controller) {
+            this.controller = new this.ControllerClass(...this.dependencies);
         }
-
-        if (this.controllers.has(version)) {
-            return this.controllers.get(version);
-        }
-
-        const controllerFactory = this.controllerFactories.get(version);
-        if (!controllerFactory) {
-            throw new Error(`No controller factory registered for version ${version}`);
-        }
-        const controller = controllerFactory();
-        controllers.set(version, controller);
         return controller;
+    }
+
+    async handleRequest(version, method, ...args) {
+        try {
+            const controller = this.getController();
+            await controller.execute(version, method, ...args);
+        } catch (error) {
+            next(error);
+        }
     }
 
     removeVersion(version) {
@@ -95,45 +91,17 @@ class BaseRouter {
         this.supportedVersions.delete(version);
         this.deprecatedVersions.delete(version);
     }
-    
 
-    route(method, path, handler, middlewares = []) {
-        this.router[method](path, ...middlewares, async (req, res, next) => {
-            try {
-                if (!req.controller[handler]) {
-                    throw new Error(`Handler ${handler} not found in ${controller.constructor.name}`);
-                }
-                await req.controller[handler](req, res, next);
-            } catch (error) {
-                next(error);
-            }
-        });
-    }
-
-    get(path, handler, middlewares = []) {
-        this.route('get', path, handler, middlewares);
-    }
-
-    post(path, handler, middlewares = []) {
-        this.route('post', path, handler, middlewares);
-    }
-
-    put(path, handler, middlewares = []) {
-        this.route('put', path, handler, middlewares);
-    }
-
-    delete(path, handler, middleware = []) {
-        this.route('delete', path, handler, middleware);
+    getAcceptVersion(req) {
+        const version = req.headers['accept-version'] || this.defaultVersion;
+        return version.toLowerCase();
     }
 
     destroy() {
-        this.controllers.forEach(controller => {
-            if (typeof controller.destroy === 'function') {
-                controller.destroy();
-            }
-        });
-        this.controllers.clear();
-        this.controllerFactories.clear();
+        if (this.controller?.destroy) {
+            this.controller.destroy();
+        }
+        this.controller = null;
     }
 }
 

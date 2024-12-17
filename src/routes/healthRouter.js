@@ -1,13 +1,17 @@
-const HealthCheckController = require('../controllers/health/healthCheckController');
+const BaseRouter = require('./baseRouter');
+const HealthCheckController = require('../controllers/healthCheckController');
 class HealthCheckRouter extends BaseRouter {
     constructor() {
-        const controller = new HealthCheckController();
+        super(HealthCheckController);
         this.markAsSupported('v1');
-        this.registerVersion('v1', () => controller);
         this.defineRoutes();
     }
 
     defineRoutes() {
-        this.get('/health-check', 'healthCheck');
+        this.router.get('/health-check', (req, res, next) => {
+            const version = this.getAcceptVersion(req);
+            this.handleRequest(version, 'getHealthInfo', req, res, next);
+        });
+
     }
 }
