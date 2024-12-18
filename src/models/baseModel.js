@@ -9,27 +9,26 @@ class BaseModel {
         this.modelName = modelName;
         // create model based on schema
         this.model = mongoose.model(modelName, this.schema);
-        try {
-            const strategy = ValidationStrategyFactory.createStrategy(this.modelName)
-            this.setValidateStrategy(strategy);
-        } catch (error) {
-            throw new Error(`Error creating model "${modelName}": ${error.message}`);  
-        }
-    }
-
-    setValidateStrategy(strategy) {
-        this.#validationStrategy = strategy;
     }
 
     getValidateStrategy() {
+        if (!this.#validationStrategy) {
+            try {
+                const strategy = ValidationStrategyFactory.createStrategy(this.modelName)
+                this.#validationStrategy = strategy;
+            } catch (error) {
+                throw new Error(`Error creating model "${modelName}": ${error.message}`);  
+            }
+        }
         return this.#validationStrategy;
     }
 
     async validate(data) {
-        if (!this.#validationStrategy) {
+        const validation = this.getValidateStrategy();
+        if (!validation) {
             throw new Error('Validation strategy is not set');
         }
-        this.#validationStrategy.validate(data);
+        validation.validate(data);
     }
 
     async create(data, condition) {

@@ -1,4 +1,4 @@
-class ValidationStrategyFactory {
+class ValidationFactory {
     #strategies = new Map();
 
     registerStrategy(key, strategy) {
@@ -14,4 +14,4 @@ class ValidationStrategyFactory {
     }
 }
 
-module.exports = ValidationStrategyFactory;
+module.exports = ValidationFactory;

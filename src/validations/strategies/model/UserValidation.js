@@ -1,5 +1,5 @@
-const ValidationStrategy = require('./ValidationStrategy');
-class UserValidation extends ValidationStrategy {
+const ModelValidationStrategy = require('./ModelValidationStrategy');
+class UserValidation extends ModelValidationStrategy {
     async validate(data) {
         await validateEmail(data.email);
         await validateUserName(data.username);

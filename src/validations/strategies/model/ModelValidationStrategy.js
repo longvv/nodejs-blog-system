@@ -1,4 +1,4 @@
-class ValidationStrategy {
+class ModelValidationStrategy {
     constructor() {
         
     }
@@ -12,4 +12,4 @@ class ValidationStrategy {
     }
 }
 
-module.exports = ValidationStrategy;
+module.exports = ModelValidationStrategy;

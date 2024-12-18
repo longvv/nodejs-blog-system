@@ -1,4 +1,4 @@
-const ValidationStrategyFactory = require('./ValidationStrategyFactory');
+const ValidationFactory = require('./ValidationFactory');
 const CommentValidation = require('./strategies/model/CommentValidation');
 const PostValidation = require('./strategies/model/PostValidation');
 const UserValidation = require('./strategies/model/UserValidation');
@@ -7,7 +7,7 @@ const CommentRepositoryValidation = require('./strategies/repository/CommentRepo
 const PostRepositoryValidation = require('./strategies/repository/PostRepositoryValidation');
 const UserRepositoryValidation = require('./strategies/repository/UserRepositoryValidation');
 
-function initializeValidationStrategies(factory = new ValidationStrategyFactory()) {
+function initializeValidationStrategies(factory = new ValidationFactory()) {
     //Model validation registration
     factory.registerStrategy('comment', CommentValidation);
     factory.registerStrategy('post', PostValidation);

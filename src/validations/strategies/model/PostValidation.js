@@ -1,5 +1,5 @@
-const ValidationStrategy = require('./ValidationStrategy');
-class PostValidation extends ValidationStrategy {
+const ModelValidationStrategy = require('./ModelValidationStrategy');
+class PostValidation extends ModelValidationStrategy {
     async validate(data) {
         ValidationHelper.validateRequired(data.title, 'Title');
         ValidationHelper.validateMinLength(data.title, 'Title', 5);
