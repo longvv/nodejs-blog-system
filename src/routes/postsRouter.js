@@ -7,7 +7,6 @@ class PostRouter extends BaseRouter {
     constructor() {
         const service = new PostService();
         super(PostController, service);
-        this.markAsSupported('v1');
         this.defineRoutes();
     }
 

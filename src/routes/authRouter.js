@@ -6,7 +6,6 @@ class AuthRouter extends BaseRouter {
     constructor() {
         const service = new AuthService();
         super(AuthController, service);
-        this.markAsSupported('v1');
         this.defineRoutes();
     }
 

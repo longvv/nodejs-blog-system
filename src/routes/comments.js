@@ -6,7 +6,6 @@ class CommentRouter extends BaseRouter {
     constructor() {
         const service = new CommentService();
         super(CommentController, service);
-        this.markAsSupported('v1');
         this.defineRoutes();
     }
 

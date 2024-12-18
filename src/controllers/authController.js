@@ -1,13 +1,13 @@
 const VersionedBase = require('../versionedBase');
 class AuthController extends VersionedBase {
-    constructor(authService, handlers = {}) {
+    constructor(authService, handlers = Map) {
         const defaultHandlers = {
             v1: {
-                login: this.loginV1.bind(this),
-                register: this.registerV1.bind(this),
-                logout: this.logoutV1.bind(this),
-                delete: this.deleteV1.bind(this),
-                getUserByID: this.getUserByIDV1.bind(this)
+                login: {handler: this.loginV1.bind(this), status: API_STATUS.ACTIVE},
+                register: {handler: this.registerV1.bind(this), status: API_STATUS.ACTIVE},
+                logout: {handler: this.logoutV1.bind(this), status: API_STATUS.ACTIVE},
+                delete: {handler: this.deleteV1.bind(this), status: API_STATUS.ACTIVE},
+                getUserByID: {handler: this.getUserByIDV1.bind(this), status: API_STATUS.ACTIVE},
             }
         };
 

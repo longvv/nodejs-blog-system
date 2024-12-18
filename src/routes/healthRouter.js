@@ -3,7 +3,6 @@ const HealthCheckController = require('../controllers/healthCheckController');
 class HealthCheckRouter extends BaseRouter {
     constructor() {
         super(HealthCheckController);
-        this.markAsSupported('v1');
         this.defineRoutes();
     }
 

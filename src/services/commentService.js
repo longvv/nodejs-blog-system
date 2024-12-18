@@ -1,5 +1,5 @@
 const VersionedBase = require('../versionedBase');
-class CommentService extends BaseService {
+class CommentService extends VersionedBase {
     constructor(commentRepository) {
         const defaultHandlers = {
             v1: {
