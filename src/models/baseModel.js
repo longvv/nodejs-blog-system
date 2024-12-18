@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ValidationFactory = require('../validations/ValidationFactory');
 
 class BaseModel {
     #validationStrategy = null;
@@ -14,7 +15,7 @@ class BaseModel {
     getValidateStrategy() {
         if (!this.#validationStrategy) {
             try {
-                const strategy = ValidationStrategyFactory.createStrategy(this.modelName)
+                const strategy = ValidationFactory.createStrategy(this.modelName)
                 this.#validationStrategy = strategy;
             } catch (error) {
                 throw new Error(`Error creating model "${modelName}": ${error.message}`);  
